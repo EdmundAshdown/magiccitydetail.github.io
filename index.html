@@ -1,31 +1,37 @@
 <!DOCTYPE html>
-<!-- saved from url=(0061)file:///C:/Users/edmun/Downloads/magic-city-membership_5.html -->
+<!-- saved from url=(0061)file:///C:/Users/edmun/Downloads/magic-city-membership_6.html -->
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="Magic City Members">
-<meta name="theme-color" content="#0A1628">
-<title>Magic City Detailing — Members</title>
+<meta name="apple-mobile-web-app-title" content="Tarrant Car Wash">
+<meta name="theme-color" content="#EEF3FC">
+<title>Tarrant Full Service Car Wash — Members</title>
+<!-- APP VERSION: 1.0.3 — update this and the Dashboard label on each release -->
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Inter:wght@400;500;600&display=swap');
 
   :root {
-    --navy: #0A1628;
-    --navy-light: #132038;
-    --aqua: #00C2CB;
-    --aqua-dim: #00909A;
-    --amber: #F5A623;
-    --amber-dim: #C4841A;
-    --white: #FFFFFF;
-    --gray-50: #F8FAFC;
-    --gray-100: #EFF3F8;
-    --gray-200: #DDE4EE;
-    --gray-400: #8B9BB4;
-    --gray-600: #4A5E7A;
+    /* Two clearly distinct blues — dark base, noticeably lighter surface */
+    --bg:           #EEF3FC;   /* near-white blue tint — page background */
+    --surface:      #112D6B;   /* rich royal blue — cards & nav */
+    --surface-hi:   #1A3F8F;   /* slightly lighter — hover / inputs */
+    --blue-dark:    #040F24;   /* deepest shadow tone */
+
+    --gold:         #F5C518;   /* bright logo yellow */
+    --gold-dim:     #C49A0A;   /* muted gold for secondary */
+    --teal:         #00B4C8;   /* staff-shirt cyan accent */
+
+    --white:        #FFFFFF;
+    --text-primary: #FFFFFF;
+    --text-secondary: #9BB4D8;
+    --text-muted:   #5A7AAF;
+    --border:       rgba(255,255,255,0.09);
+    --border-strong: rgba(255,255,255,0.18);
+
     --green: #22C55E;
-    --red: #EF4444;
+    --red:   #EF4444;
     --yellow: #F59E0B;
     --radius-sm: 8px;
     --radius-md: 12px;
@@ -37,7 +43,7 @@
 
   body {
     font-family: 'Inter', -apple-system, sans-serif;
-    background: var(--navy);
+    background: var(--bg);
     color: var(--white);
     min-height: 100dvh;
     overflow-x: hidden;
@@ -47,8 +53,8 @@
   .nav {
     position: fixed;
     bottom: 0; left: 0; right: 0;
-    background: var(--navy-light);
-    border-top: 1px solid rgba(255,255,255,0.08);
+    background: var(--surface);
+    border-top: 1px solid var(--border);
     display: flex;
     z-index: 100;
     padding-bottom: env(safe-area-inset-bottom, 0px);
@@ -62,7 +68,7 @@
     padding: 12px 0 10px;
     background: none;
     border: none;
-    color: var(--gray-400);
+    color: var(--text-muted);
     font-family: 'Inter', sans-serif;
     font-size: 11px;
     font-weight: 500;
@@ -70,8 +76,8 @@
     transition: color 0.15s;
   }
   .nav-btn svg { width: 22px; height: 22px; stroke-width: 1.8; }
-  .nav-btn.active { color: var(--aqua); }
-  .nav-btn.active svg { stroke: var(--aqua); }
+  .nav-btn.active { color: var(--gold); }
+  .nav-btn.active svg { stroke: var(--gold); }
 
   /* ── PAGES ── */
   .page { display: none; padding: 0 0 90px; min-height: 100dvh; }
@@ -80,19 +86,21 @@
   /* ── HEADER ── */
   .page-header {
     padding: 52px 24px 20px;
-    background: linear-gradient(180deg, var(--navy-light) 0%, transparent 100%);
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 16px;
   }
   .page-header .eyebrow {
     font-size: 11px;
-    font-weight: 600;
+    font-weight: 700;
     letter-spacing: 0.12em;
     text-transform: uppercase;
-    color: var(--aqua);
-    margin-bottom: 6px;
+    color: var(--gold);
+    margin-bottom: 4px;
   }
   .page-header h1 {
     font-family: 'Syne', sans-serif;
-    font-size: 32px;
+    font-size: 30px;
     font-weight: 800;
     line-height: 1.1;
     color: var(--white);
@@ -112,15 +120,15 @@
     transform: translateY(-50%);
     width: 20px;
     height: 20px;
-    stroke: var(--gray-400);
+    stroke: var(--text-muted);
     stroke-width: 1.8;
     pointer-events: none;
   }
   .search-input {
     width: 100%;
     padding: 14px 14px 14px 44px;
-    background: var(--navy-light);
-    border: 1px solid rgba(255,255,255,0.1);
+    background: var(--surface);
+    border: 1px solid var(--border);
     border-radius: var(--radius-md);
     color: var(--white);
     font-family: 'Inter', sans-serif;
@@ -128,20 +136,20 @@
     outline: none;
     transition: border-color 0.15s;
   }
-  .search-input:focus { border-color: var(--aqua); }
-  .search-input::placeholder { color: var(--gray-400); }
+  .search-input:focus { border-color: var(--gold); }
+  .search-input::placeholder { color: var(--text-muted); }
 
   .scan-plate-btn {
     width: 100%;
     margin-top: 12px;
     padding: 14px;
-    background: rgba(0,194,203,0.12);
-    border: 1px dashed var(--aqua-dim);
+    background: var(--surface);
+    border: none;
     border-radius: var(--radius-md);
-    color: var(--aqua);
+    color: var(--gold);
     font-family: 'Inter', sans-serif;
     font-size: 15px;
-    font-weight: 500;
+    font-weight: 600;
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -149,15 +157,15 @@
     gap: 10px;
     transition: background 0.15s;
   }
-  .scan-plate-btn:active { background: rgba(0,194,203,0.2); }
+  .scan-plate-btn:active { background: var(--surface-hi); }
   .scan-plate-btn svg { width: 20px; height: 20px; stroke-width: 1.8; }
 
   /* ── RESULT CARD ── */
   .result-area { padding: 0 20px; }
 
   .member-card {
-    background: var(--navy-light);
-    border: 1px solid rgba(255,255,255,0.08);
+    background: var(--surface);
+    border: 1px solid var(--border);
     border-radius: var(--radius-lg);
     overflow: hidden;
     margin-bottom: 12px;
@@ -177,14 +185,14 @@
     width: 48px;
     height: 48px;
     border-radius: 50%;
-    background: var(--aqua);
+    background: var(--gold);
     display: flex;
     align-items: center;
     justify-content: center;
     font-family: 'Syne', sans-serif;
     font-size: 18px;
     font-weight: 700;
-    color: var(--navy);
+    color: var(--bg);
     flex-shrink: 0;
   }
 
@@ -198,7 +206,7 @@
     overflow: hidden;
     text-overflow: ellipsis;
   }
-  .member-phone { font-size: 13px; color: var(--gray-400); }
+  .member-phone { font-size: 13px; color: var(--text-muted); }
 
   .status-badge {
     display: inline-flex;
@@ -254,12 +262,12 @@
   .plate-state span { color: #002868; font-size: 11px; }
 
   .member-card-footer {
-    border-top: 1px solid rgba(255,255,255,0.06);
+    border-top: 1px solid var(--border);
     padding: 10px 18px;
     display: flex;
     gap: 8px;
     font-size: 12px;
-    color: var(--gray-400);
+    color: var(--text-muted);
   }
   .member-card-footer strong { color: var(--white); }
 
@@ -270,10 +278,10 @@
   .btn-primary {
     width: 100%;
     padding: 16px;
-    background: var(--aqua);
+    background: var(--gold);
     border: none;
     border-radius: var(--radius-md);
-    color: var(--navy);
+    color: var(--bg);
     font-family: 'Inter', sans-serif;
     font-size: 16px;
     font-weight: 700;
@@ -285,16 +293,16 @@
     transition: background 0.15s, transform 0.1s;
     letter-spacing: 0.01em;
   }
-  .btn-primary:active { transform: scale(0.99); background: var(--aqua-dim); }
+  .btn-primary:active { transform: scale(0.99); background: var(--gold-dim); }
   .btn-primary svg { width: 20px; height: 20px; stroke-width: 2.2; }
 
   .btn-amber {
     width: 100%;
     padding: 16px;
-    background: var(--amber);
+    background: var(--teal);
     border: none;
     border-radius: var(--radius-md);
-    color: var(--navy);
+    color: var(--white);
     font-family: 'Inter', sans-serif;
     font-size: 16px;
     font-weight: 700;
@@ -305,16 +313,16 @@
     gap: 8px;
     transition: background 0.15s, transform 0.1s;
   }
-  .btn-amber:active { transform: scale(0.99); background: var(--amber-dim); }
+  .btn-amber:active { transform: scale(0.99); background: var(--teal); }
   .btn-amber svg { width: 20px; height: 20px; stroke-width: 2.2; }
 
   .btn-ghost {
     width: 100%;
     padding: 14px;
     background: none;
-    border: 1px solid rgba(255,255,255,0.12);
+    border: 1px solid var(--border-strong);
     border-radius: var(--radius-md);
-    color: var(--gray-400);
+    color: var(--text-muted);
     font-family: 'Inter', sans-serif;
     font-size: 15px;
     font-weight: 500;
@@ -328,11 +336,11 @@
   .empty-state {
     text-align: center;
     padding: 48px 32px;
-    color: var(--gray-400);
+    color: var(--text-muted);
   }
   .empty-state svg {
     width: 48px; height: 48px;
-    stroke: var(--gray-600);
+    stroke: var(--text-muted);
     stroke-width: 1.5;
     margin-bottom: 16px;
   }
@@ -349,9 +357,9 @@
   .filter-chip {
     padding: 6px 14px;
     border-radius: 999px;
-    border: 1px solid rgba(255,255,255,0.1);
+    border: 1px solid var(--border);
     background: none;
-    color: var(--gray-400);
+    color: var(--text-muted);
     font-size: 13px;
     font-weight: 500;
     font-family: 'Inter', sans-serif;
@@ -359,9 +367,9 @@
     transition: all 0.15s;
   }
   .filter-chip.active {
-    background: rgba(0,194,203,0.15);
-    border-color: var(--aqua-dim);
-    color: var(--aqua);
+    background: rgba(245,197,24,0.12);
+    border-color: var(--gold-dim);
+    color: var(--gold);
   }
 
   .members-list { padding: 0 20px; }
@@ -374,14 +382,14 @@
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.08em;
-    color: var(--gray-400);
+    color: var(--text-muted);
     margin-bottom: 8px;
   }
   .form-input {
     width: 100%;
     padding: 14px 16px;
-    background: var(--navy-light);
-    border: 1px solid rgba(255,255,255,0.1);
+    background: var(--surface);
+    border: 1px solid var(--border);
     border-radius: var(--radius-md);
     color: var(--white);
     font-family: 'Inter', sans-serif;
@@ -390,8 +398,8 @@
     transition: border-color 0.15s;
     -webkit-appearance: none;
   }
-  .form-input:focus { border-color: var(--aqua); }
-  .form-input::placeholder { color: var(--gray-600); }
+  .form-input:focus { border-color: var(--gold); }
+  .form-input::placeholder { color: var(--text-secondary); }
 
   .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 
@@ -401,8 +409,8 @@
     gap: 10px;
   }
   .plan-option {
-    background: var(--navy-light);
-    border: 1.5px solid rgba(255,255,255,0.1);
+    background: var(--surface);
+    border: 1.5px solid var(--border);
     border-radius: var(--radius-md);
     padding: 14px;
     cursor: pointer;
@@ -410,8 +418,8 @@
     text-align: center;
   }
   .plan-option.selected {
-    border-color: var(--amber);
-    background: rgba(245,166,35,0.08);
+    border-color: var(--gold);
+    background: rgba(245,197,24,0.08);
   }
   .plan-option .plan-name {
     font-weight: 600;
@@ -423,11 +431,11 @@
     font-family: 'Syne', sans-serif;
     font-size: 22px;
     font-weight: 800;
-    color: var(--amber);
+    color: var(--gold);
   }
   .plan-option .plan-freq {
     font-size: 11px;
-    color: var(--gray-400);
+    color: var(--text-muted);
   }
 
   /* Plate scan input special */
@@ -448,7 +456,7 @@
     transform: translateY(-50%);
     background: none;
     border: none;
-    color: var(--aqua);
+    color: var(--gold);
     cursor: pointer;
     padding: 6px;
   }
@@ -489,7 +497,7 @@
   .plate-target {
     width: 75%;
     height: 90px;
-    border: 3px solid var(--amber);
+    border: 3px solid var(--gold);
     border-radius: 6px;
     box-shadow: 0 0 0 2000px rgba(0,0,0,0.5);
   }
@@ -536,7 +544,7 @@
     min-height: 20px;
     text-align: center;
     font-size: 14px;
-    color: var(--aqua);
+    color: var(--gold);
   }
 
   .camera-hint {
@@ -573,7 +581,7 @@
     width: 58px;
     height: 58px;
     border-radius: 50%;
-    background: var(--amber);
+    background: var(--gold);
     pointer-events: none;
   }
 
@@ -612,7 +620,7 @@
   .toast svg { width: 18px; height: 18px; stroke-width: 2.5; }
 
   .toast.error { background: var(--red); }
-  .toast.warning { background: var(--yellow); color: var(--navy); }
+  .toast.warning { background: var(--yellow); color: var(--white); }
 
   /* ── DETAIL VIEW ── */
   .detail-back {
@@ -620,7 +628,7 @@
     align-items: center;
     gap: 8px;
     padding: 52px 20px 16px;
-    color: var(--aqua);
+    color: var(--gold);
     font-size: 15px;
     font-weight: 500;
     cursor: pointer;
@@ -635,20 +643,20 @@
     display: flex;
     align-items: center;
     gap: 16px;
-    border-bottom: 1px solid rgba(255,255,255,0.06);
+    border-bottom: 1px solid var(--border);
     margin-bottom: 20px;
   }
   .detail-avatar {
     width: 64px; height: 64px;
     border-radius: 50%;
-    background: var(--aqua);
+    background: var(--gold);
     display: flex;
     align-items: center;
     justify-content: center;
     font-family: 'Syne', sans-serif;
     font-size: 24px;
     font-weight: 800;
-    color: var(--navy);
+    color: var(--bg);
     flex-shrink: 0;
   }
   .detail-name {
@@ -657,7 +665,7 @@
     font-weight: 800;
     color: var(--white);
   }
-  .detail-since { font-size: 13px; color: var(--gray-400); margin-top: 2px; }
+  .detail-since { font-size: 13px; color: var(--text-muted); margin-top: 2px; }
 
   .detail-section {
     padding: 0 20px 20px;
@@ -667,7 +675,7 @@
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.1em;
-    color: var(--gray-600);
+    color: var(--text-secondary);
     margin-bottom: 12px;
   }
   .detail-row {
@@ -675,11 +683,11 @@
     align-items: center;
     gap: 12px;
     padding: 10px 0;
-    border-bottom: 1px solid rgba(255,255,255,0.05);
+    border-bottom: 1px solid var(--border);
   }
   .detail-row:last-child { border-bottom: none; }
-  .detail-row svg { width: 18px; height: 18px; stroke: var(--gray-400); stroke-width: 1.8; flex-shrink: 0; }
-  .detail-row-label { font-size: 13px; color: var(--gray-400); flex: 1; }
+  .detail-row svg { width: 18px; height: 18px; stroke: var(--text-muted); stroke-width: 1.8; flex-shrink: 0; }
+  .detail-row-label { font-size: 13px; color: var(--text-muted); flex: 1; }
   .detail-row-value { font-size: 15px; font-weight: 500; color: var(--white); text-align: right; }
 
   .checkin-history {
@@ -690,15 +698,15 @@
     align-items: center;
     justify-content: space-between;
     padding: 9px 0;
-    border-bottom: 1px solid rgba(255,255,255,0.05);
+    border-bottom: 1px solid var(--border);
   }
   .checkin-entry:last-child { border-bottom: none; }
   .checkin-entry-date { font-size: 14px; color: var(--white); }
-  .checkin-entry-time { font-size: 12px; color: var(--gray-400); }
+  .checkin-entry-time { font-size: 12px; color: var(--text-muted); }
 
   .plan-banner {
     margin: 0 20px 20px;
-    background: rgba(245,166,35,0.1);
+    background: rgba(245,197,24,0.1);
     border: 1px solid rgba(245,166,35,0.25);
     border-radius: var(--radius-md);
     padding: 14px 16px;
@@ -706,11 +714,11 @@
     align-items: center;
     justify-content: space-between;
   }
-  .plan-banner-label { font-size: 12px; color: var(--amber-dim); text-transform: uppercase; letter-spacing: 0.08em; font-weight: 600; margin-bottom: 2px; }
-  .plan-banner-name { font-family: 'Syne', sans-serif; font-size: 20px; font-weight: 800; color: var(--amber); }
-  .plan-banner-exp { font-size: 12px; color: var(--gray-400); margin-top: 2px; }
+  .plan-banner-label { font-size: 12px; color: var(--gold-dim); text-transform: uppercase; letter-spacing: 0.08em; font-weight: 600; margin-bottom: 2px; }
+  .plan-banner-name { font-family: 'Syne', sans-serif; font-size: 20px; font-weight: 800; color: var(--gold); }
+  .plan-banner-exp { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
 
-  .divider { height: 1px; background: rgba(255,255,255,0.06); margin: 0 20px 20px; }
+  .divider { height: 1px; background: var(--border); margin: 0 20px 20px; }
 
   /* ── STATS PAGE ── */
   .stats-grid {
@@ -721,12 +729,12 @@
     margin-bottom: 20px;
   }
   .stat-card {
-    background: var(--navy-light);
-    border: 1px solid rgba(255,255,255,0.08);
+    background: var(--surface);
+    border: 1px solid var(--border);
     border-radius: var(--radius-md);
     padding: 16px;
   }
-  .stat-label { font-size: 12px; color: var(--gray-400); margin-bottom: 6px; font-weight: 500; }
+  .stat-label { font-size: 12px; color: var(--text-muted); margin-bottom: 6px; font-weight: 500; }
   .stat-number {
     font-family: 'Syne', sans-serif;
     font-size: 34px;
@@ -734,8 +742,8 @@
     color: var(--white);
     line-height: 1;
   }
-  .stat-number.aqua { color: var(--aqua); }
-  .stat-number.amber { color: var(--amber); }
+  .stat-number.aqua { color: var(--teal); }
+  .stat-number.amber { color: var(--gold); }
 
   /* ── MISC ── */
   .section-pad { height: 16px; }
@@ -763,7 +771,7 @@
 <!-- ══════════════ CHECK-IN PAGE ══════════════ -->
 <div id="page-checkin" class="page active">
   <div class="page-header">
-    <div class="eyebrow">Magic City Detailing</div>
+    <div class="eyebrow">Tarrant Car Wash</div>
     <h1>Check In</h1>
   </div>
   <div class="checkin-search">
@@ -782,7 +790,7 @@
 <!-- ══════════════ MEMBERS PAGE ══════════════ -->
 <div id="page-members" class="page">
   <div class="page-header">
-    <div class="eyebrow">Magic City Detailing</div>
+    <div class="eyebrow">Tarrant Car Wash</div>
     <h1>Members</h1>
   </div>
   <div class="members-controls">
@@ -796,7 +804,7 @@
 <!-- ══════════════ ADD MEMBER PAGE ══════════════ -->
 <div id="page-add" class="page">
   <div class="page-header">
-    <div class="eyebrow">Magic City Detailing</div>
+    <div class="eyebrow">Tarrant Car Wash</div>
     <h1>New Member</h1>
   </div>
 
@@ -884,7 +892,7 @@
 <!-- ══════════════ DASHBOARD PAGE ══════════════ -->
 <div id="page-dash" class="page">
   <div class="page-header">
-    <div class="eyebrow">Magic City Detailing</div>
+    <div class="eyebrow">Tarrant Car Wash</div>
     <h1>Dashboard</h1>
   </div>
   <div class="stats-grid" id="stats-grid">
@@ -906,109 +914,112 @@
     </div>
   </div>
   <div style="padding: 0 20px 12px;">
-    <div style="font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:0.1em; color:var(--gray-600); margin-bottom:12px;">Recent Check-ins</div>
+    <div style="font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:0.1em; color:var(--text-secondary); margin-bottom:12px;">Recent Check-ins</div>
     <div id="recent-checkins"><div class="checkin-entry" style="border-bottom:1px solid rgba(255,255,255,0.05); padding: 10px 0;">
       <div style="display:flex; align-items:center; gap:10px;">
-        <div style="width:36px;height:36px;border-radius:50%;background:var(--aqua);display:flex;align-items:center;justify-content:center;font-family:&#39;Syne&#39;,sans-serif;font-size:13px;font-weight:800;color:var(--navy);flex-shrink:0;">DK</div>
+        <div style="width:36px;height:36px;border-radius:50%;background:var(--gold);display:flex;align-items:center;justify-content:center;font-family:&#39;Syne&#39;,sans-serif;font-size:13px;font-weight:800;color:var(--bg);flex-shrink:0;">DK</div>
         <div>
           <div style="font-size:15px;font-weight:500;color:var(--white);">David Kim</div>
-          <div style="font-size:12px;color:var(--gray-400);">DNL 7712</div>
+          <div style="font-size:12px;color:var(--text-muted);">DNL 7712</div>
         </div>
       </div>
       <div style="text-align:right;">
         <div style="font-size:13px;color:var(--white);">7:38 PM</div>
-        <div style="font-size:11px;color:var(--gray-400);">Jun 26, 2026</div>
+        <div style="font-size:11px;color:var(--text-muted);">Jun 26, 2026</div>
       </div>
     </div><div class="checkin-entry" style="border-bottom:1px solid rgba(255,255,255,0.05); padding: 10px 0;">
       <div style="display:flex; align-items:center; gap:10px;">
-        <div style="width:36px;height:36px;border-radius:50%;background:var(--aqua);display:flex;align-items:center;justify-content:center;font-family:&#39;Syne&#39;,sans-serif;font-size:13px;font-weight:800;color:var(--navy);flex-shrink:0;">MG</div>
+        <div style="width:36px;height:36px;border-radius:50%;background:var(--gold);display:flex;align-items:center;justify-content:center;font-family:&#39;Syne&#39;,sans-serif;font-size:13px;font-weight:800;color:var(--bg);flex-shrink:0;">MG</div>
         <div>
           <div style="font-size:15px;font-weight:500;color:var(--white);">Maria Gonzalez</div>
-          <div style="font-size:12px;color:var(--gray-400);">XTR 9923</div>
+          <div style="font-size:12px;color:var(--text-muted);">XTR 9923</div>
         </div>
       </div>
       <div style="text-align:right;">
         <div style="font-size:13px;color:var(--white);">7:38 PM</div>
-        <div style="font-size:11px;color:var(--gray-400);">Jun 26, 2026</div>
+        <div style="font-size:11px;color:var(--text-muted);">Jun 26, 2026</div>
       </div>
     </div><div class="checkin-entry" style="border-bottom:1px solid rgba(255,255,255,0.05); padding: 10px 0;">
       <div style="display:flex; align-items:center; gap:10px;">
-        <div style="width:36px;height:36px;border-radius:50%;background:var(--aqua);display:flex;align-items:center;justify-content:center;font-family:&#39;Syne&#39;,sans-serif;font-size:13px;font-weight:800;color:var(--navy);flex-shrink:0;">JP</div>
+        <div style="width:36px;height:36px;border-radius:50%;background:var(--gold);display:flex;align-items:center;justify-content:center;font-family:&#39;Syne&#39;,sans-serif;font-size:13px;font-weight:800;color:var(--bg);flex-shrink:0;">JP</div>
         <div>
           <div style="font-size:15px;font-weight:500;color:var(--white);">James Patterson</div>
-          <div style="font-size:12px;color:var(--gray-400);">ALB 4421</div>
+          <div style="font-size:12px;color:var(--text-muted);">ALB 4421</div>
         </div>
       </div>
       <div style="text-align:right;">
         <div style="font-size:13px;color:var(--white);">7:38 PM</div>
-        <div style="font-size:11px;color:var(--gray-400);">Jun 26, 2026</div>
+        <div style="font-size:11px;color:var(--text-muted);">Jun 26, 2026</div>
       </div>
     </div><div class="checkin-entry" style="border-bottom:1px solid rgba(255,255,255,0.05); padding: 10px 0;">
       <div style="display:flex; align-items:center; gap:10px;">
-        <div style="width:36px;height:36px;border-radius:50%;background:var(--aqua);display:flex;align-items:center;justify-content:center;font-family:&#39;Syne&#39;,sans-serif;font-size:13px;font-weight:800;color:var(--navy);flex-shrink:0;">DK</div>
+        <div style="width:36px;height:36px;border-radius:50%;background:var(--gold);display:flex;align-items:center;justify-content:center;font-family:&#39;Syne&#39;,sans-serif;font-size:13px;font-weight:800;color:var(--bg);flex-shrink:0;">DK</div>
         <div>
           <div style="font-size:15px;font-weight:500;color:var(--white);">David Kim</div>
-          <div style="font-size:12px;color:var(--gray-400);">DNL 7712</div>
+          <div style="font-size:12px;color:var(--text-muted);">DNL 7712</div>
         </div>
       </div>
       <div style="text-align:right;">
         <div style="font-size:13px;color:var(--white);">7:38 PM</div>
-        <div style="font-size:11px;color:var(--gray-400);">Jun 19, 2026</div>
+        <div style="font-size:11px;color:var(--text-muted);">Jun 19, 2026</div>
       </div>
     </div><div class="checkin-entry" style="border-bottom:1px solid rgba(255,255,255,0.05); padding: 10px 0;">
       <div style="display:flex; align-items:center; gap:10px;">
-        <div style="width:36px;height:36px;border-radius:50%;background:var(--aqua);display:flex;align-items:center;justify-content:center;font-family:&#39;Syne&#39;,sans-serif;font-size:13px;font-weight:800;color:var(--navy);flex-shrink:0;">MG</div>
+        <div style="width:36px;height:36px;border-radius:50%;background:var(--gold);display:flex;align-items:center;justify-content:center;font-family:&#39;Syne&#39;,sans-serif;font-size:13px;font-weight:800;color:var(--bg);flex-shrink:0;">MG</div>
         <div>
           <div style="font-size:15px;font-weight:500;color:var(--white);">Maria Gonzalez</div>
-          <div style="font-size:12px;color:var(--gray-400);">XTR 9923</div>
+          <div style="font-size:12px;color:var(--text-muted);">XTR 9923</div>
         </div>
       </div>
       <div style="text-align:right;">
         <div style="font-size:13px;color:var(--white);">7:38 PM</div>
-        <div style="font-size:11px;color:var(--gray-400);">Jun 19, 2026</div>
+        <div style="font-size:11px;color:var(--text-muted);">Jun 19, 2026</div>
       </div>
     </div><div class="checkin-entry" style="border-bottom:1px solid rgba(255,255,255,0.05); padding: 10px 0;">
       <div style="display:flex; align-items:center; gap:10px;">
-        <div style="width:36px;height:36px;border-radius:50%;background:var(--aqua);display:flex;align-items:center;justify-content:center;font-family:&#39;Syne&#39;,sans-serif;font-size:13px;font-weight:800;color:var(--navy);flex-shrink:0;">JP</div>
+        <div style="width:36px;height:36px;border-radius:50%;background:var(--gold);display:flex;align-items:center;justify-content:center;font-family:&#39;Syne&#39;,sans-serif;font-size:13px;font-weight:800;color:var(--bg);flex-shrink:0;">JP</div>
         <div>
           <div style="font-size:15px;font-weight:500;color:var(--white);">James Patterson</div>
-          <div style="font-size:12px;color:var(--gray-400);">ALB 4421</div>
+          <div style="font-size:12px;color:var(--text-muted);">ALB 4421</div>
         </div>
       </div>
       <div style="text-align:right;">
         <div style="font-size:13px;color:var(--white);">7:38 PM</div>
-        <div style="font-size:11px;color:var(--gray-400);">Jun 19, 2026</div>
+        <div style="font-size:11px;color:var(--text-muted);">Jun 19, 2026</div>
       </div>
     </div><div class="checkin-entry" style="border-bottom:1px solid rgba(255,255,255,0.05); padding: 10px 0;">
       <div style="display:flex; align-items:center; gap:10px;">
-        <div style="width:36px;height:36px;border-radius:50%;background:var(--aqua);display:flex;align-items:center;justify-content:center;font-family:&#39;Syne&#39;,sans-serif;font-size:13px;font-weight:800;color:var(--navy);flex-shrink:0;">DK</div>
+        <div style="width:36px;height:36px;border-radius:50%;background:var(--gold);display:flex;align-items:center;justify-content:center;font-family:&#39;Syne&#39;,sans-serif;font-size:13px;font-weight:800;color:var(--bg);flex-shrink:0;">DK</div>
         <div>
           <div style="font-size:15px;font-weight:500;color:var(--white);">David Kim</div>
-          <div style="font-size:12px;color:var(--gray-400);">DNL 7712</div>
+          <div style="font-size:12px;color:var(--text-muted);">DNL 7712</div>
         </div>
       </div>
       <div style="text-align:right;">
         <div style="font-size:13px;color:var(--white);">7:38 PM</div>
-        <div style="font-size:11px;color:var(--gray-400);">Jun 12, 2026</div>
+        <div style="font-size:11px;color:var(--text-muted);">Jun 12, 2026</div>
       </div>
     </div><div class="checkin-entry" style="border-bottom:1px solid rgba(255,255,255,0.05); padding: 10px 0;">
       <div style="display:flex; align-items:center; gap:10px;">
-        <div style="width:36px;height:36px;border-radius:50%;background:var(--aqua);display:flex;align-items:center;justify-content:center;font-family:&#39;Syne&#39;,sans-serif;font-size:13px;font-weight:800;color:var(--navy);flex-shrink:0;">MG</div>
+        <div style="width:36px;height:36px;border-radius:50%;background:var(--gold);display:flex;align-items:center;justify-content:center;font-family:&#39;Syne&#39;,sans-serif;font-size:13px;font-weight:800;color:var(--bg);flex-shrink:0;">MG</div>
         <div>
           <div style="font-size:15px;font-weight:500;color:var(--white);">Maria Gonzalez</div>
-          <div style="font-size:12px;color:var(--gray-400);">XTR 9923</div>
+          <div style="font-size:12px;color:var(--text-muted);">XTR 9923</div>
         </div>
       </div>
       <div style="text-align:right;">
         <div style="font-size:13px;color:var(--white);">7:38 PM</div>
-        <div style="font-size:11px;color:var(--gray-400);">Jun 12, 2026</div>
+        <div style="font-size:11px;color:var(--text-muted);">Jun 12, 2026</div>
       </div>
     </div></div>
+  </div>
+  <div style="padding: 24px 20px 8px; text-align:center;">
+    <div style="font-size:11px; color:var(--text-secondary); font-weight:500;">Version 1.0.3</div>
   </div>
 </div>
 
 <!-- ══════════════ DETAIL VIEW (overlay) ══════════════ -->
-<div id="detail-view" style="display:none; position:fixed; inset:0; background:var(--navy); z-index:150; overflow-y:auto; padding-bottom:90px;">
+<div id="detail-view" style="display:none; position:fixed; inset:0; background:var(--bg); z-index:150; overflow-y:auto; padding-bottom:90px;">
   <button class="detail-back" onclick="closeDetail()">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="m15 18-6-6 6-6"></path></svg>
     Back
@@ -1029,7 +1040,7 @@
     </div>
   </div>
   <div class="camera-bottom-bar">
-    <div id="ocr-scan-ui">
+    <div id="ocr-scan-ui" style="display: block;">
       <div class="camera-hint">Line up the plate inside the box, then tap the button</div>
       <div id="ocr-status"></div>
       <div class="camera-btn-row">
@@ -1045,7 +1056,7 @@
       <input id="ocr-edit" type="text" style="
         width:100%; padding:14px 16px;
         background:rgba(255,255,255,0.1);
-        border:2px solid var(--amber);
+        border:2px solid var(--gold);
         border-radius:10px;
         color:var(--white);
         font-family:&#39;Syne&#39;,sans-serif;
@@ -1070,10 +1081,10 @@
         </button>
         <button onclick="confirmPlate()" style="
           flex:2; padding:14px;
-          background:var(--amber);
+          background:var(--gold);
           border:none;
           border-radius:10px;
-          color:var(--navy);
+          color:var(--surface);
           font-family:&#39;Inter&#39;,sans-serif;
           font-size:16px; font-weight:700;
           cursor:pointer;">
@@ -1362,7 +1373,7 @@ async function openDetail(id) {
       <div class="checkin-entry-date">${formatDate(c.ts)}</div>
       <div class="checkin-entry-time">${formatTime(c.ts)}</div>
     </div>
-  `).join('') || `<div style="color:var(--gray-400); font-size:14px; padding:12px 0;">No check-ins yet</div>`;
+  `).join('') || `<div style="color:var(--text-muted); font-size:14px; padding:12px 0;">No check-ins yet</div>`;
 
   document.getElementById('detail-content').innerHTML = `
     <div class="detail-hero" style="padding:0 20px 24px; margin-bottom:0;">
@@ -1384,10 +1395,10 @@ async function openDetail(id) {
         ${expDate ? `<div class="plan-banner-exp">Renews ${formatDate(expDate.getTime())}</div>` : ''}
       </div>
       <div style="text-align:right;">
-        <div style="font-family:'Syne',sans-serif; font-size:28px; font-weight:800; color:var(--amber);">
+        <div style="font-family:'Syne',sans-serif; font-size:28px; font-weight:800; color:var(--gold);">
           $${{basic:29,premium:49,unlimited:79,vip:99}[m.plan]||'—'}
         </div>
-        <div style="font-size:12px; color:var(--gray-400);">/month</div>
+        <div style="font-size:12px; color:var(--text-muted);">/month</div>
       </div>
     </div>` : ''}
 
@@ -1421,7 +1432,7 @@ async function openDetail(id) {
     ${m.notes ? `<div class="divider"></div>
     <div class="detail-section" style="padding: 0 20px 20px;">
       <div class="detail-section-title">Notes</div>
-      <div style="font-size:14px; color:var(--gray-200); line-height:1.6;">${m.notes}</div>
+      <div style="font-size:14px; color:var(--border-strong); line-height:1.6;">${m.notes}</div>
     </div>` : ''}
 
     <div class="divider"></div>
@@ -1547,7 +1558,7 @@ async function renderDashboard() {
 
   const el = document.getElementById('recent-checkins');
   if (!recent.length) {
-    el.innerHTML = `<div style="color:var(--gray-400); font-size:14px; padding:12px 0;">No check-ins yet today.</div>`;
+    el.innerHTML = `<div style="color:var(--text-muted); font-size:14px; padding:12px 0;">No check-ins yet today.</div>`;
     return;
   }
   el.innerHTML = recent.map(c => {
@@ -1555,15 +1566,15 @@ async function renderDashboard() {
     if (!m) return '';
     return `<div class="checkin-entry" style="border-bottom:1px solid rgba(255,255,255,0.05); padding: 10px 0;">
       <div style="display:flex; align-items:center; gap:10px;">
-        <div style="width:36px;height:36px;border-radius:50%;background:var(--aqua);display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-size:13px;font-weight:800;color:var(--navy);flex-shrink:0;">${initials(m.name)}</div>
+        <div style="width:36px;height:36px;border-radius:50%;background:var(--gold);display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-size:13px;font-weight:800;color:var(--bg);flex-shrink:0;">${initials(m.name)}</div>
         <div>
           <div style="font-size:15px;font-weight:500;color:var(--white);">${m.name}</div>
-          <div style="font-size:12px;color:var(--gray-400);">${m.plate || m.vehicle || '—'}</div>
+          <div style="font-size:12px;color:var(--text-muted);">${m.plate || m.vehicle || '—'}</div>
         </div>
       </div>
       <div style="text-align:right;">
         <div style="font-size:13px;color:var(--white);">${formatTime(c.ts)}</div>
-        <div style="font-size:11px;color:var(--gray-400);">${formatDate(c.ts)}</div>
+        <div style="font-size:11px;color:var(--text-muted);">${formatDate(c.ts)}</div>
       </div>
     </div>`;
   }).join('');
