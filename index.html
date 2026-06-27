@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0061)file:///C:/Users/edmun/Downloads/magic-city-membership_3.html -->
+<!-- saved from url=(0061)file:///C:/Users/edmun/Downloads/magic-city-membership_4.html -->
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -1029,14 +1029,57 @@
     </div>
   </div>
   <div class="camera-bottom-bar">
-    <div class="camera-hint">Line up the plate inside the box, then tap the button</div>
-    <div id="ocr-status"></div>
-    <div class="camera-btn-row">
-      <button class="camera-cancel-btn" onclick="closeCamera()">Cancel</button>
-      <button class="capture-btn" onclick="captureFrame()" aria-label="Capture">
-        <div class="capture-btn-inner"></div>
-      </button>
-      <div style="width:80px"></div>
+    <div id="ocr-scan-ui">
+      <div class="camera-hint">Line up the plate inside the box, then tap the button</div>
+      <div id="ocr-status"></div>
+      <div class="camera-btn-row">
+        <button class="camera-cancel-btn" onclick="closeCamera()">Cancel</button>
+        <button class="capture-btn" onclick="captureFrame()" aria-label="Capture">
+          <div class="capture-btn-inner"></div>
+        </button>
+        <div style="width:80px"></div>
+      </div>
+    </div>
+    <div id="ocr-confirm" style="display:none; flex-direction:column; align-items:center; gap:14px; width:100%;">
+      <div style="font-size:13px; color:rgba(255,255,255,0.6);">Detected plate — correct if needed:</div>
+      <input id="ocr-edit" type="text" style="
+        width:100%; padding:14px 16px;
+        background:rgba(255,255,255,0.1);
+        border:2px solid var(--amber);
+        border-radius:10px;
+        color:var(--white);
+        font-family:&#39;Syne&#39;,sans-serif;
+        font-size:26px;
+        font-weight:800;
+        letter-spacing:0.1em;
+        text-align:center;
+        text-transform:uppercase;
+        outline:none;
+      ">
+      <div style="display:flex; gap:12px; width:100%;">
+        <button onclick="retryCapture()" style="
+          flex:1; padding:14px;
+          background:rgba(255,255,255,0.08);
+          border:1px solid rgba(255,255,255,0.2);
+          border-radius:10px;
+          color:var(--white);
+          font-family:&#39;Inter&#39;,sans-serif;
+          font-size:15px; font-weight:500;
+          cursor:pointer;">
+          Retry
+        </button>
+        <button onclick="confirmPlate()" style="
+          flex:2; padding:14px;
+          background:var(--amber);
+          border:none;
+          border-radius:10px;
+          color:var(--navy);
+          font-family:&#39;Inter&#39;,sans-serif;
+          font-size:16px; font-weight:700;
+          cursor:pointer;">
+          Use This Plate
+        </button>
+      </div>
     </div>
   </div>
 </div>
@@ -1547,8 +1590,29 @@ async function openCamera(target) {
   }
 }
 
+function retryCapture() {
+  document.getElementById('ocr-confirm').style.display = 'none';
+  document.getElementById('ocr-scan-ui').style.display = 'block';
+  document.getElementById('ocr-status').textContent = '';
+}
+
+function confirmPlate() {
+  const text = document.getElementById('ocr-edit').value.trim().toUpperCase();
+  if (!text) return;
+  if (cameraTarget === 'add') {
+    document.getElementById('f-plate').value = text;
+  } else {
+    document.getElementById('checkin-search').value = text;
+    document.getElementById('checkin-search').dispatchEvent(new Event('input'));
+  }
+  closeCamera();
+}
+
 function closeCamera() {
   document.getElementById('camera-modal').classList.remove('open');
+  document.getElementById('ocr-confirm').style.display = 'none';
+  document.getElementById('ocr-scan-ui').style.display = 'block';
+  document.getElementById('ocr-status').textContent = '';
   if (cameraStream) {
     cameraStream.getTracks().forEach(t => t.stop());
     cameraStream = null;
@@ -1605,22 +1669,22 @@ async function captureFrame() {
 
     let text = result.data.text.trim().toUpperCase().replace(/[^A-Z0-9\s]/g, '').replace(/\s+/g,' ').trim();
 
-    // Heuristic: grab longest token that looks like a plate
-    const tokens = text.split(' ');
-    const plateLike = tokens.filter(t => t.length >= 3 && t.length <= 8).sort((a,b) => b.length - a.length);
-    text = plateLike.join(' ').substring(0,10);
+    // Strip known Alabama plate boilerplate that isn't the plate number
+    const BLOCKLIST = ['ALABAMA','HEART','DIXIE','OF','WWW','TRAVEL','COM','GOV','STATE'];
+    const tokens = text.split(' ').filter(t => {
+      if (t.length < 2 || t.length > 8) return false;
+      if (BLOCKLIST.includes(t)) return false;
+      if (/^\d{1,2}$/.test(t)) return false; // sticker years like "01" "27"
+      return true;
+    });
+    text = tokens.join(' ').substring(0, 10).trim();
 
-    if (text.length >= 3) {
-      status.textContent = `Detected: ${text}`;
-      setTimeout(() => {
-        if (cameraTarget === 'add') {
-          document.getElementById('f-plate').value = text;
-        } else {
-          document.getElementById('checkin-search').value = text;
-          document.getElementById('checkin-search').dispatchEvent(new Event('input'));
-        }
-        closeCamera();
-      }, 800);
+    if (text.length >= 2) {
+      status.textContent = '';
+      document.getElementById('ocr-scan-ui').style.display = 'none';
+      const confirm = document.getElementById('ocr-confirm');
+      confirm.style.display = 'flex';
+      document.getElementById('ocr-edit').value = text;
     } else {
       status.textContent = 'Could not read plate — try again or type it manually.';
     }
