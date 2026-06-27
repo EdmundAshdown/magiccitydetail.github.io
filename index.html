@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0061)file:///C:/Users/edmun/Downloads/magic-city-membership_7.html -->
+<!-- saved from url=(0061)file:///C:/Users/edmun/Downloads/magic-city-membership_8.html -->
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -779,10 +779,18 @@
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.35-4.35"></path></svg>
       <input class="search-input" id="checkin-search" type="text" placeholder="Name, phone, or plate number…" autocomplete="off" autocorrect="off">
     </div>
-    <button class="scan-plate-btn" onclick="openCamera(&#39;checkin&#39;)">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="2" y="3" width="20" height="14" rx="2"></rect><path d="M8 21h8M12 17v4"></path><path d="M7 8h.01M17 8h.01"></path></svg>
-      Scan License Plate
-    </button>
+    <div style="text-align:center; margin-top:10px;">
+      <button onclick="openCamera(&#39;checkin&#39;)" style="
+        background:none; border:none; cursor:pointer;
+        color:var(--text-muted); font-family:&#39;Inter&#39;,sans-serif;
+        font-size:13px; font-weight:500;
+        display:inline-flex; align-items:center; gap:6px;
+        padding:4px 8px;
+      ">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" style="width:14px;height:14px;stroke-width:2;"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
+        or scan license plate
+      </button>
+    </div>
   </div>
   <div id="checkin-results" class="result-area"></div>
 </div>
@@ -1640,11 +1648,20 @@ async function captureFrame() {
   const ctx = canvas.getContext('2d');
   ctx.drawImage(video, 0, 0);
 
-  // Capture full frame — let OCR see everything, scoring will find the plate
-  const cropX = 0;
-  const cropY = 0;
-  const cropW = canvas.width;
-  const cropH = canvas.height;
+  // Crop canvas to match exactly what's inside the yellow box overlay.
+  // The box CSS is: width 75%, centered horizontally, height 90px centered vertically.
+  // We replicate those proportions on the captured frame.
+  const vidW = canvas.width;
+  const vidH = canvas.height;
+
+  // Horizontal: box is 75% wide, centered → 12.5% margin each side
+  const cropX = vidW * 0.125;
+  const cropW = vidW * 0.75;
+
+  // Vertical: the video fills the top portion of the modal (above the bottom bar).
+  // The box is centered in that video area. We use the center 25% of height.
+  const cropY = vidH * 0.375;
+  const cropH = vidH * 0.25;
 
   const cropCanvas = document.createElement('canvas');
   cropCanvas.width = cropW * 2;
