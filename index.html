@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0061)file:///C:/Users/edmun/Downloads/magic-city-membership_9.html -->
+<!-- saved from url=(0062)file:///C:/Users/edmun/Downloads/magic-city-membership_11.html -->
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -8,7 +8,7 @@
 <meta name="apple-mobile-web-app-title" content="Tarrant Car Wash">
 <meta name="theme-color" content="#EEF3FC">
 <title>Tarrant Full Service Car Wash — Members</title>
-<!-- APP VERSION: 1.0.4 — update this and the Dashboard label on each release -->
+<!-- APP VERSION: 1.0.6 — update this and the Dashboard label on each release -->
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Inter:wght@400;500;600&display=swap');
 
@@ -669,22 +669,12 @@
     <div class="plan-picker">
       <div class="plan-option selected" data-plan="basic" onclick="selectPlan(this,&#39;basic&#39;)">
         <div class="plan-name">Basic</div>
-        <div class="plan-price">$29</div>
+        <div class="plan-price">$19</div>
         <div class="plan-freq">/month</div>
       </div>
-      <div class="plan-option" data-plan="premium" onclick="selectPlan(this,&#39;premium&#39;)">
-        <div class="plan-name">Premium</div>
-        <div class="plan-price">$49</div>
-        <div class="plan-freq">/month</div>
-      </div>
-      <div class="plan-option" data-plan="unlimited" onclick="selectPlan(this,&#39;unlimited&#39;)">
-        <div class="plan-name">Unlimited</div>
-        <div class="plan-price">$79</div>
-        <div class="plan-freq">/month</div>
-      </div>
-      <div class="plan-option" data-plan="vip" onclick="selectPlan(this,&#39;vip&#39;)">
-        <div class="plan-name">VIP</div>
-        <div class="plan-price">$99</div>
+      <div class="plan-option" data-plan="handwash" onclick="selectPlan(this,&#39;handwash&#39;)">
+        <div class="plan-name">Hand Wash</div>
+        <div class="plan-price">$25</div>
         <div class="plan-freq">/month</div>
       </div>
     </div>
@@ -729,7 +719,7 @@
     </div>
     <div class="stat-card">
       <div class="stat-label">Today's Check-ins</div>
-      <div class="stat-number amber">3</div>
+      <div class="stat-number amber">0</div>
     </div>
     <div class="stat-card">
       <div class="stat-label">Total Check-ins</div>
@@ -836,8 +826,45 @@
       </div>
     </div></div>
   </div>
+
+  <div style="padding: 20px 20px 4px;">
+    <div style="font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:0.1em; color:var(--text-secondary); margin-bottom:12px;">Database Backup</div>
+    <div style="background:var(--surface); border-radius:var(--radius-md); overflow:hidden;">
+      <div style="padding:16px 16px 12px; border-bottom:1px solid var(--border);">
+        <div style="font-size:14px; font-weight:600; color:var(--white); margin-bottom:4px;">Export Members &amp; History</div>
+        <div style="font-size:12px; color:var(--text-secondary); line-height:1.5;">Downloads a JSON file with all members and check-in history. Share via text, email, or AirDrop for safekeeping.</div>
+      </div>
+      <button onclick="exportDB()" style="
+        width:100%; padding:14px 16px;
+        background:none; border:none;
+        color:var(--gold); font-family:&#39;Inter&#39;,sans-serif;
+        font-size:15px; font-weight:600;
+        cursor:pointer; text-align:left;
+        display:flex; align-items:center; gap:10px;
+        border-bottom:1px solid var(--border);
+      ">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" style="width:18px;height:18px;stroke-width:2;flex-shrink:0;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+        Export Backup
+      </button>
+      <label style="
+        width:100%; padding:14px 16px;
+        color:var(--text-secondary); font-family:&#39;Inter&#39;,sans-serif;
+        font-size:15px; font-weight:600;
+        cursor:pointer; text-align:left;
+        display:flex; align-items:center; gap:10px;
+      ">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" style="width:18px;height:18px;stroke-width:2;flex-shrink:0;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+        Restore from Backup
+        <input type="file" accept=".json" onchange="importDB(event)" style="display:none;">
+      </label>
+    </div>
+    <div style="font-size:11px; color:var(--text-muted); margin-top:8px; text-align:center; line-height:1.5;">
+      Tip: export weekly and save to iCloud Drive or text to the owner
+    </div>
+  </div>
+
   <div style="padding: 24px 20px 8px; text-align:center;">
-    <div style="font-size:11px; color:var(--text-secondary); font-weight:500;">Version 1.0.4</div>
+    <div style="font-size:11px; color:var(--text-secondary); font-weight:500;">Version 1.0.6</div>
   </div>
 </div>
 
@@ -1149,7 +1176,7 @@ async function openDetail(id) {
       </div>
       <div style="text-align:right;">
         <div style="font-family:'Syne',sans-serif; font-size:28px; font-weight:800; color:var(--gold);">
-          $${{basic:29,premium:49,unlimited:79,vip:99}[m.plan]||'—'}
+          $${{basic:19,handwash:25}[m.plan]||'—'}
         </div>
         <div style="font-size:12px; color:var(--text-muted);">/month</div>
       </div>
@@ -1331,6 +1358,79 @@ async function renderDashboard() {
       </div>
     </div>`;
   }).join('');
+}
+
+// ════════════════════════════════════════════════
+// EXPORT / IMPORT
+// ════════════════════════════════════════════════
+async function exportDB() {
+  const members  = await getAll('members');
+  const checkins = await getAll('checkins');
+  const payload  = {
+    exportedAt: new Date().toISOString(),
+    version: '1.0.6',
+    members,
+    checkins
+  };
+
+  const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
+  const url  = URL.createObjectURL(blob);
+  const date = new Date().toISOString().slice(0, 10);
+  const a    = document.createElement('a');
+  a.href     = url;
+  a.download = `tarrant-members-${date}.json`;
+  a.click();
+  URL.revokeObjectURL(url);
+  showToast('Backup downloaded!');
+}
+
+async function importDB(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+
+  const text = await file.text();
+  let payload;
+  try {
+    payload = JSON.parse(text);
+  } catch {
+    showToast('Invalid backup file', 'error');
+    return;
+  }
+
+  if (!payload.members || !Array.isArray(payload.members)) {
+    showToast('Invalid backup file', 'error');
+    return;
+  }
+
+  if (!confirm(`Restore ${payload.members.length} members from backup dated ${payload.exportedAt?.slice(0,10) || 'unknown'}?\n\nThis will REPLACE all current data.`)) {
+    event.target.value = '';
+    return;
+  }
+
+  // Clear existing data
+  const tx = db.transaction(['members','checkins'], 'readwrite');
+  tx.objectStore('members').clear();
+  tx.objectStore('checkins').clear();
+  await new Promise((res, rej) => { tx.oncomplete = res; tx.onerror = rej; });
+
+  // Re-import members (strip id so autoIncrement re-assigns cleanly, preserve original ids for checkin links)
+  const idMap = {}; // old id → new id
+  for (const m of payload.members) {
+    const oldId = m.id;
+    const newId = await put('members', { ...m });
+    idMap[oldId] = newId;
+  }
+
+  // Re-import checkins with remapped member ids
+  for (const c of (payload.checkins || [])) {
+    const newMemberId = idMap[c.memberId];
+    if (newMemberId) await put('checkins', { ...c, id: undefined, memberId: newMemberId });
+  }
+
+  event.target.value = '';
+  showToast(`Restored ${payload.members.length} members`);
+  renderDashboard();
+  renderMembers();
 }
 
 // ════════════════════════════════════════════════
